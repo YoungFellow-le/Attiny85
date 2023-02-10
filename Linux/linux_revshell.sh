@@ -11,7 +11,7 @@ subnets_count=$(($total_ip / 255)) # Number of subnets
 rm -f /tmp/$attacker
 host=4
 
-for subnet in subnets_count; do
+for subnet in {1..$subnets_count}; do
     while [[ $host -le 255 ]] ; do 
         [[ -f /tmp/$attacker ]] && break
         check_ip() { [[ ! -f /tmp/$attacker ]] && { ip="$1"; [[ "$(timeout 0.3s python3 -c "import socket; print(socket.getfqdn('$ip'))")" = "$attacker" ]] && echo $ip > /tmp/$attacker ; } }
